@@ -10,6 +10,9 @@ import 'package:path/path.dart'; //needed for basename
 
 void main() async {
 
+  //Needed for the newer version to function
+  WidgetsFlutterBinding.ensureInitialized();
+  
   final FirebaseApp app = await FirebaseApp.configure(
       name: 'firebaseapp',
       options: new FirebaseOptions(
