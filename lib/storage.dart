@@ -11,12 +11,16 @@ Future<String> upload(File file, String basename) async {
   StorageReference ref = FirebaseStorage.instance.ref().child('file/test/${basename}');
   StorageUploadTask uploadTask = ref.putFile(file);
 
-  Uri location = (await uploadTask.future).downloadUrl;
+  //Uri location = (await uploadTask.future).downloadUrl;
+  var storageTaskSnapshot = await uploadTask.onComplete;
+  String location = await storageTaskSnapshot.ref.getDownloadURL();
+
   String name = await ref.getName();
   String bucket = await ref.getBucket();
   String path = await ref.getPath();
 
-  print('Url: ${location.toString()}');
+ // print('Url: ${location.toString()}');
+  print('Url: ${location}');
   print('Name: ${name}');
   print('Bucket: ${bucket}');
   print('Path: ${path}');
